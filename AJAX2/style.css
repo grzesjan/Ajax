@@ -1,17 +1,19 @@
 @import url('https://fonts.googleapis.com/css?family=Indie+Flower|Quicksand');
+
 body {
     background-color: rgba(85, 171, 237, 1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     font-family: 'Indie Flower';
     color: white;
 }
 
-.elements {
+.elements, body, .box {
     display: flex;
     flex-direction: column;
     text-align: center;
+}
+
+body, .box {
+    align-items: center;
 }
 
 .trigger, .tweet {
@@ -34,10 +36,3 @@ body {
     text-decoration: none;
     margin-top: 25px;
 } 
-
-.box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center; 
-}

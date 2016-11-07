@@ -20,14 +20,13 @@ function searchCountries() {
     
 function showCountriesList(resp) {
     countriesList.empty();
-    this.item = this;
     resp.forEach(function(item) {
         $("<li id='"+ item.name +"'>").text("Państwo: " + item.name).appendTo(countriesList);            
     });
     choiceCountry();
 }
 
-function choiceCountry(){
+function choiceCountry() {
     $("li").click(function() {
        var countryName = $(this).attr('id');
        
@@ -40,7 +39,7 @@ function choiceCountry(){
     });
 }
 
-function showCountryDetails(response){
+function showCountryDetails(response) {
     countriesList.empty();
     var choosenCountry = response[0];
     $("<li>").text("Państwo : " + choosenCountry.name).appendTo(countriesList);

@@ -14,46 +14,40 @@ function searchCountries() {
         url: url + countryName,
         method: "GET",
         error: showError,
-        success: showCountriesList
-        
+        success: showCountriesList  
     });   
 }
     
-function showCountriesList(resp) { //obiekty
-    self = this;
-    this.resp = resp;
-
+function showCountriesList(resp) {
     countriesList.empty();
-    
-    resp.forEach(function(item) { // atrybuty obiektow
-        self = this;
-        this.item = item;
-        
-        $("<li>").text("Państwo: " + item.name).appendTo(countriesList);
-
-        $('li').each(function(country) {
-            $(this).attr('id', (resp[country].name));
-        });
-        choiceCountry();
-     });  
-        
-        //$("li").eq(0).css("display", "block");
-
-        //if ($("li").attr("id") == self.item.name){
-        //    choiceCountry();
-        //}       
+    this.item = this;
+    resp.forEach(function(item) {
+        $("<li id='"+ item.name +"'>").text("Państwo: " + item.name).appendTo(countriesList);            
+    });
+    choiceCountry();
 }
 
 function choiceCountry(){
     $("li").click(function() {
-       countriesList.empty();
-
-       $("<li>").text("Państwo : " + self.item.name).appendTo(countriesList);
-       $("<li>").text("Stolica : " + self.item.capital).appendTo(countriesList);
-       $("<li>").text("Waluta : " + self.item.currencies).appendTo(countriesList);
-       $("<li>").text("Kontynent : " + self.item.region).appendTo(countriesList);
-       $("<li>").text("Nazwa kraju po niemiecku : " + self.item.translations.de).appendTo(countriesList);
+       var countryName = $(this).attr('id');
+       
+       $.ajax({
+        url: url + countryName,
+        method: "GET",
+        error: showError,
+        success: showCountryDetails  
+        });  
     });
+}
+
+function showCountryDetails(response){
+    countriesList.empty();
+    var choosenCountry = response[0];
+    $("<li>").text("Państwo : " + choosenCountry.name).appendTo(countriesList);
+    $("<li>").text("Stolica : " + choosenCountry.capital).appendTo(countriesList);
+    $("<li>").text("Waluta : " + choosenCountry.currencies).appendTo(countriesList);
+    $("<li>").text("Kontynent : " + choosenCountry.region).appendTo(countriesList);
+    $("<li>").text("Nazwa kraju po niemiecku : " + choosenCountry.translations.de).appendTo(countriesList);
 }
   
 function showError(info) {

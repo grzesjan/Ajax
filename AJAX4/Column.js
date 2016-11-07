@@ -1,3 +1,14 @@
+var baseUrl = 'https://kodilla.com/pl/bootcamp-api';
+var myHeaders = {
+  'X-Client-Id': "91",
+  'X-Auth-Token': "0030fe41fdf1a2f8a64920dc2fdce005"
+};
+
+$.ajaxSetup({
+	headers: myHeaders
+});
+
+
 function Column(id, name) {
 	var self = this;
 	this.id = id;
@@ -11,26 +22,13 @@ function Column(id, name) {
 		var columnDelete = $('<button class="btn-delete">x</button>');
 		var columnAddCard = $('<button class="column-add-card">Dodaj kartę</button>');
 		
-		columnDelete.click(function(){
-			self.element.remove();
+		columnDelete.click(function() {
+			self.deleteColumn();
 		});
 
-		function deleteColumn() {
-   			var self = this;
-   			
-			$.ajax({
-     			url: baseUrl + '/column/' + self.id,
-      			method: 'DELETE',
-      			success: function(response) {
-        			self.element.remove();
-      			}
-    		});
- 		}
-		
 		columnAddCard.click(function(event) {
 			var cardName = prompt("Wpisz nazwę karty");
 			event.preventDefault();
-			
 			$.ajax({
     			url: baseUrl + '/card',
    				method: 'POST',
@@ -58,6 +56,13 @@ Column.prototype = {
 		this.element.children('ul').append(card.element);
 	},
 	deleteColumn: function() {
-	  	this.element.remove();
-	}
-};
+    var self = this;
+    $.ajax({
+      url: baseUrl + '/column/' + self.id,
+      method: 'DELETE',
+      success: function(response){
+        self.element.remove();
+      }
+    });
+   }	
+}

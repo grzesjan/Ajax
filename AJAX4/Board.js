@@ -1,3 +1,14 @@
+var baseUrl = 'https://kodilla.com/pl/bootcamp-api';
+var myHeaders = {
+  'X-Client-Id': "91",
+  'X-Auth-Token': "0030fe41fdf1a2f8a64920dc2fdce005"
+};
+
+$.ajaxSetup({
+	headers: myHeaders
+});
+
+
 var board = {
 	name: 'Tablica Kanban',
 	createColumn: function(column) {
@@ -22,6 +33,9 @@ $('.create-column').click(function() {
         }
 		});
 });
+
+
+
 	
 function initSortable() {
     $('.card-list').sortable({

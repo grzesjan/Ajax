@@ -13,17 +13,6 @@ function Card(id, name) {
 			self.removeCard();
 		});
 
-		function removeCard() {
-    		var self = this;
-    		
-			$.ajax({
-     			url: baseUrl + '/card/' + self.id,
-      			method: 'DELETE',
-      			success: function() {
-        			self.element.remove();
-      			}
-    		});
-		}
 		card.append(cardDeleteBtn);
 		cardDescription.text(self.name);
 		card.append(cardDescription)
@@ -33,6 +22,13 @@ function Card(id, name) {
 
 Card.prototype = {
 	removeCard: function() {
-	  this.element.remove();
-	}
+    var self = this;
+    $.ajax({
+      url: baseUrl + '/card/' + self.id,
+      method: 'DELETE',
+      success: function() {
+        self.element.remove();
+      }
+    });
+   }
 }
